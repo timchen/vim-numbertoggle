@@ -15,6 +15,12 @@ function! EnableRelativeNumbers()
   set relativenumber
 endfunc
 
+" Enables hybrid numbers.
+function! EnableHybridNumbers()
+  set number
+  set relativenumber
+endfunc
+
 " Disables relative numbers.
 function! DisableRelativeNumbers()
   set number
@@ -27,7 +33,7 @@ function! NumberToggle()
     call DisableRelativeNumbers()
     let g:relativemode = 0
 	else
-    call EnableRelativeNumbers()
+    call EnableHybridNumbers()
     let g:relativemode = 1
 	endif
 endfunc
@@ -40,7 +46,7 @@ function! UpdateMode()
 	if(g:focus == 0)
 		call DisableRelativeNumbers()
 	elseif(g:insertmode == 0 && g:relativemode == 1)
-		call EnableRelativeNumbers()
+		call EnableHybridNumbers()
 	else
 		call DisableRelativeNumbers()
 	end
@@ -111,4 +117,5 @@ if exists('g:NumberToggleTrigger')
 	exec "nnoremap <silent> " . g:NumberToggleTrigger . " :call NumberToggle()<cr>"
 elseif g:UseNumberToggleTrigger
 	nnoremap <silent> <C-n> :call NumberToggle()<cr>
+  " nnoremap <silent> <leader>n :call NumberToggle()<cr>
 endif
